@@ -101,7 +101,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2017-05-19</span>
-            <span class="time">11:23:07</span>
+            <span class="time">11:25:37</span>
           </span>
           
           <!--  Categories  -->
@@ -124,13 +124,13 @@
         <!-- Post Main Content -->
         <div class="post-content">
           <p>HashMap, Queue, Map.foreach((k,v)-&gt;{});<br><a id="more"></a></p>
-<p>Description of the question</p>
-<p>Leetocde: [Source]<a href="https://leetcode.com/problems/clone-graph/" target="_blank" rel="external">https://leetcode.com/problems/clone-graph/</a></p>
+<p>##Description of the question</p>
+<p>Leetocde: <a href="https://leetcode.com/problems/clone-graph/" target="_blank" rel="external">Source</a></p>
 <h2 id="Ideas-to-solve-it"><a href="#Ideas-to-solve-it" class="headerlink" title="Ideas to solve it"></a>Ideas to solve it</h2><p>find(DFS) and clone each node in the graph first, then assign neighbors for each node.</p>
 <h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>DFS with Queue and Map<node, clone=""><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Map&lt;UndirectedGraphNode,UndirectedGraphNode&gt; map=new HashMap&lt;&gt;();</div><div class="line">       Queue&lt;UndirectedGraphNode&gt; queue=new LinkedList&lt;&gt;();</div><div class="line">       <span class="keyword">if</span>(node==null)<span class="built_in">return</span> null;</div><div class="line">       queue.add(node);</div><div class="line">       map.put(node,new UndirectedGraphNode(node.label));</div><div class="line">       <span class="keyword">while</span>(queue.size()&gt;0)&#123;</div><div class="line">           UndirectedGraphNode p=queue.poll();</div><div class="line">           <span class="keyword">for</span>(UndirectedGraphNode nei: p.neighbors)&#123;</div><div class="line">               <span class="keyword">if</span>(!map.containsKey(nei))&#123;</div><div class="line">                   queue.add(nei);</div><div class="line">                   map.put(nei,new UndirectedGraphNode(nei.label));</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div></pre></td></tr></table></figure></node,></p>
 <h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Assign neighbors for each node</p>
 <p>1.map.foreach()<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">map.forEach((k,v)-&gt;&#123;</div><div class="line">           <span class="keyword">for</span>(UndirectedGraphNode knei: k.neighbors)</div><div class="line">               v.neighbors.add(map.get(knei));</div><div class="line">       &#125;);</div></pre></td></tr></table></figure></p>
-<p>2.map.entry<br>    for (Map.Entry<undirectedgraphnode, undirectedgraphnode=""> entry : map.entrySet()) {<br>            for(UndirectedGraphNode knei: entry.getKey().neighbors)<br>                entry.getValue().neighbors.add(map.get(knei));<br>        }</undirectedgraphnode,></p>
+<p>2.map.entry<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (Map.Entry&lt;UndirectedGraphNode, UndirectedGraphNode&gt; entry : map.entrySet()) &#123;</div><div class="line">           <span class="keyword">for</span>(UndirectedGraphNode knei: entry.getKey().neighbors)</div><div class="line">               entry.getValue().neighbors.add(map.get(knei));</div><div class="line">       &#125;</div></pre></td></tr></table></figure></p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>DFS is widely used for graph problem. In graph, circles may exist, so we need a map/set/array to check whether a node is already visited.</p>
 <p>In java 8, foreach function is provided which is similar to Javascript style and it helps the process of iterating through collections.</p>
 <p>Reference: <a href="https://yewong.me" target="_blank" rel="external">reference</a></p>
